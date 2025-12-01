@@ -1,7 +1,9 @@
 package com.salwa.jobtracker.controller;
 
-import com.salwa.jobtracker.model.JobApplication;
-import com.salwa.jobtracker.repository.JobApplicationRepository;
+import com.salwa.jobtracker.dto.JobApplicationRequest;
+import com.salwa.jobtracker.dto.JobApplicationResponse;
+import com.salwa.jobtracker.service.JobApplicationService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,45 +13,35 @@ import java.util.List;
 @RequestMapping("/api/applications")
 public class JobApplicationController {
 
-    private final JobApplicationRepository repository;
+    private final JobApplicationService service;
 
-    public JobApplicationController(JobApplicationRepository repository) {
-        this.repository = repository;
+    public JobApplicationController(JobApplicationService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public List<JobApplication> getAll() {
-        return repository.findAll();
+    public List<JobApplicationResponse> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<JobApplication> getById(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public JobApplicationResponse getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public JobApplication create(@RequestBody JobApplication job) {
-        return repository.save(job);
+    public JobApplicationResponse create(@Valid @RequestBody JobApplicationRequest request) {
+        return service.create(request);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<JobApplication> update(@PathVariable Long id, @RequestBody JobApplication updated) {
-        return repository.findById(id)
-                .map(existing -> {
-                    updated.setId(existing.getId());
-                    return ResponseEntity.ok(repository.save(updated));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public JobApplicationResponse update(@PathVariable Long id, @Valid @RequestBody JobApplicationRequest request) {
+        return service.update(id, request);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (!repository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        repository.deleteById(id);
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
