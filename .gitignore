@@ -1,0 +1,37 @@
+### Maven ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+### Logs ###
+*.log
+*.out
+*.tmp
+
+### OS files ###
+.DS_Store
+Thumbs.db
+
+### IDE ##
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+
+### Java ###
+*.class
+
+### Environment Files ###
+*.env
+*.local
+
+### Spring Boot ###
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+### Docker ###
+# Ignore database volumes
+*/pgdata/
