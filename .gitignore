@@ -1,5 +1,6 @@
 ### Maven ###
 target/
+backend/target/
 !.mvn/wrapper/maven-wrapper.jar
 .mvn/wrapper/maven-wrapper.properties
 
@@ -30,7 +31,10 @@ out/
 
 ### Environment Files ###
 .env
+*/.env
 *.local
 
 ### Docker ###
 docker/*.pid
+pgdata/
+*/pgdata/
