@@ -8,11 +8,11 @@ target/
 *.out
 *.tmp
 
-### OS files ###
+### OS ###
 .DS_Store
 Thumbs.db
 
-### IDE ##
+### IDE ###
 
 # Eclipse
 .project
@@ -20,18 +20,17 @@ Thumbs.db
 .settings/
 bin/
 
+# IntelliJ
+.idea/
+*.iml
+out/
 
 ### Java ###
 *.class
 
 ### Environment Files ###
-*.env
+.env
 *.local
 
-### Spring Boot ###
-src/main/resources/application.properties
-src/main/resources/application.yml
-
 ### Docker ###
-# Ignore database volumes
-*/pgdata/
+docker/*.pid
